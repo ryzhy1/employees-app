@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import * as React from "react";
 
 import TableInfo from "../table-info/TableInfo";
 import EmployeesList from '../employees-list/EmployeesList';
 
-import './App.css';
+import './App.scss';
 
 interface DataItem {
 	name: string;
@@ -24,29 +25,27 @@ function App() {
 		{name: 'Bill', age: 35, position: 'CEO', salary: 2500, increase: false, rise: false, id: 4},
 	];
 
-	const [empData, setData] = useState<DataItem[]>(EmpData);
+	const [data, setData] = useState(EmpData);
 
 	const deleteItem = (id: number) => {
-		setData(prevEmpData => prevEmpData.filter(item => item.id !== id));
+		return setData(data.filter(item => item.id !== id));
 	}
 
 	const onToggleProp = (id: number, prop: 'increase' | 'rise'): void => {
-		setData(
-		  EmpData.map(item => {
+		return setData(data.map(item => {
 			if (item.id === id) {
-			  return { ...item, [prop]: !item[prop] };
+				return {...item, [prop]: !item[prop]}
 			}
 			return item;
-		  })
-		);
-	  };
+		}))
+	}
 		
-	const employees:number = EmpData.length;
-	const increase:number = EmpData.filter((item: any) => item.increase).length;
-	const rise:number = EmpData.filter((item: any) => item.rise).length;
+	const employees: number = EmpData.length;
+	const increase: number = EmpData.filter((item: any) => item.increase).length;
+	const rise: number = EmpData.filter((item: any) => item.rise).length;
 
 	return (
-		<div className="App">
+		<div className="app">
 			<TableInfo
 			employeesCount={employees} 
 			increaseCount={increase} 

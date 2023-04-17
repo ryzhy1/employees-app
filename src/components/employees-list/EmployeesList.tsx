@@ -9,12 +9,12 @@ export default function EmployeesList({data, onDelete, onToggleProp}: any) {
                 key={id} 
                 {...itemProps}
                 onDelete={() => onDelete(id)}
-                onToggleProp={(e: any) => onToggleProp(id, e.currentTarget.getAttribute('data-toggle'))}/>
+                onToggleProp={(e: React.MouseEvent<HTMLElement>) => onToggleProp(id, e.currentTarget.getAttribute('data-toggle'))}/>
         )
     })
     
     return (
-        <div className="table-list">
+        <div className="app-list list-group">
             {elements}
         </div>
     )

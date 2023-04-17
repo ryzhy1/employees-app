@@ -2,9 +2,10 @@ import "./employees-list-item.scss"
 
 export default function EmployeesListItem (props: any) {
 
-    const {name, age, position, salary, increase, rise, onToggleProp, onDelete} = props;
+    const {name, age, position, salary, onToggleProp, onDelete, increase, rise} = props;
 
-    let classNames = "list-group-item d-flex justify-content-between";
+    let classNames: string = "list-group-item d-flex justify-content-between";
+
     if (increase) {
         classNames += ' increase';
     }
