@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { render } from 'react-dom';
 import * as React from "react";
 
 import TableInfo from "../table-info/TableInfo";
 import EmployeesList from '../employees-list/EmployeesList';
+import SearchPanel from '../search-panel/SearchPanel';
+import AppFilter from '../app-filter/AppFilter';
+import EmployeesAddForm from '../employees-add-form/EmployeesAddForm';
 
 import './App.scss';
 
@@ -26,12 +30,13 @@ function App() {
 	];
 
 	const [data, setData] = useState(EmpData);
+	const [term, setTerm] = useState('');
 
 	const deleteItem = (id: number) => {
-		return setData(data.filter(item => item.id !== id));
+		setData(data.filter(item => item.id !== id));
 	}
 
-	const onToggleProp = (id: number, prop: 'increase' | 'rise'): void => {
+	const onToggleProp = (id: number, prop: 'increase' | 'rise') => {
 		return setData(data.map(item => {
 			if (item.id === id) {
 				return {...item, [prop]: !item[prop]}
@@ -39,10 +44,30 @@ function App() {
 			return item;
 		}))
 	}
+
+	const onUpdateSearch = (items: DataItem[], term: string) => {
+		if (term.length === 0) {
+            return items;
+        }
+
+        return setData(items.filter((item: DataItem)=> {
+            return item.name.indexOf(term) > -1
+		}))
+	}
+
+	const onUpdateTerm = (e: any) => {
+		const term = e.target.value;
+		setTerm(term);
+	}
 		
-	const employees: number = EmpData.length;
-	const increase: number = EmpData.filter((item: any) => item.increase).length;
-	const rise: number = EmpData.filter((item: any) => item.rise).length;
+	const employees: number = data.length;
+	const increase: number = data.filter((item: any) => item.increase).length;
+	const rise: number = data.filter((item: any) => item.rise).length;
+
+
+	useEffect(() => {
+		setData(data)
+	})
 
 	return (
 		<div className="app">
@@ -51,11 +76,18 @@ function App() {
 			increaseCount={increase} 
 			riseCount={rise} 
 			/>
+			<div className="search-panel">
+				<SearchPanel 
+					onUpdateSearch={onUpdateTerm}
+					/>
+				<AppFilter/>
+			</div>
 			<EmployeesList 
-				data={EmpData}
+				data={data}
 				onDelete={deleteItem}
 				onToggleProp={onToggleProp}
 			/>
+			<EmployeesAddForm/>
 		</div>
 	);
 }

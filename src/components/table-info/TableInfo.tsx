@@ -10,7 +10,7 @@ export default function TableInfo({employeesCount, increaseCount, riseCount}: Ta
 
     return (
         <div className="app-info">
-            <h1>Учет сотрудников в компании ITMODevki</h1>
+            <h1>Учет сотрудников в компании Doodle</h1>
             <h2>Общее число сотрудников: {employeesCount}</h2>
             <h2>Премию получат: {increaseCount}</h2>
             <h2>Увеличат зарплату: {riseCount}</h2>
