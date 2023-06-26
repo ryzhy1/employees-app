@@ -2,19 +2,24 @@ import './search-panel.scss';
 
 import { useState } from 'react';
 
-const SearchPanel =() => {
+const SearchPanel =({ onUpdateSearch }: any) => {
 
     const [term, setTerm] = useState('');
 
-    const onUpdateSearch = (e: any): any => {
+    const changeUpdateSearch = (e: any): any => {
         const term = e.target.value;
         setTerm(term);
+        onUpdateSearch(term)
     }
+
 
     return (
         <input type="text"
                 className="form-control search-input"
-                placeholder="Найти сотрудника"/>
+                placeholder="Найти сотрудника"
+                value={term}
+                onChange={changeUpdateSearch}
+                />
     )
 }
 

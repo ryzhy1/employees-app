@@ -1,6 +1,6 @@
 import "./app-filter.scss";
 
-const AppFilter = (props:any) => {
+const AppFilter = (props: any) => {
     const buttonsData = [
         {name: 'all', label: 'Все сотрудники'},
         {name: 'rise', label: 'На повышение'},
